@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="OELA — Our E-sport League Association 공식 선수 기록 및 대회 규정">
+  <title>OELA — Our E-sport League Association</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="OELA Home">
+      <span class="brand-mark">O</span>
+      <span><b id="brand-short">OELA</b><small id="brand-full">Our E-sport League Association</small></span>
+    </a>
+    <nav>
+      <a href="#home">HOME</a>
+      <a href="#records">RECORDS</a>
+      <a href="#regulations">REGULATIONS</a>
+      <button class="admin-link" id="adminOpen">ADMIN</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">OFFICIAL COMPETITIONS &amp; RECORDS</p>
+        <h1 id="heroTitle">OUR E-SPORT<br>LEAGUE ASSOCIATION</h1>
+        <p id="heroSeason" class="season">2025–26 SEASON</p>
+        <p id="heroDescription" class="hero-description">OELA가 주관하는 대회의 공식 선수 기록과 규정을 한곳에서 확인하세요.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="#records">선수 기록 보기</a>
+          <a class="button secondary" href="#regulations">공식 규정 보기</a>
+        </div>
+      </div>
+      <div class="hero-badge" aria-hidden="true">
+        <span id="heroBadgeShort">OELA</span>
+        <small>OFFICIAL</small>
+      </div>
+    </section>
+
+    <section class="section competitions">
+      <div class="section-heading">
+        <div><p class="eyebrow">OELA</p><h2>Current Competitions</h2></div>
+        <span class="section-number">01</span>
+      </div>
+      <div id="competitionGrid" class="competition-grid"></div>
+    </section>
+
+    <section id="records" class="section">
+      <div class="section-heading">
+        <div><p class="eyebrow">PLAYER STATISTICS</p><h2>Records</h2></div>
+        <span class="section-number">02</span>
+      </div>
+      <div class="toolbar">
+        <div id="recordCompetitionTabs" class="tabs"></div>
+        <select id="recordSeason" aria-label="기록 시즌"></select>
+      </div>
+      <div class="record-tabs" id="recordTypeTabs">
+        <button class="active" data-type="goals">득점</button>
+        <button data-type="assists">어시스트</button>
+        <button data-type="yellow">옐로카드</button>
+        <button data-type="red">레드카드</button>
+      </div>
+      <div id="recordsTable" class="table-wrap"></div>
+    </section>
+
+    <section id="regulations" class="section regulations-section">
+      <div class="section-heading">
+        <div><p class="eyebrow">OFFICIAL DOCUMENTS</p><h2>Regulations</h2></div>
+        <span class="section-number">03</span>
+      </div>
+      <div class="toolbar">
+        <div id="regCompetitionTabs" class="tabs"></div>
+        <select id="regSeason" aria-label="규정 시즌"></select>
+      </div>
+      <div class="reg-search">
+        <input id="regSearch" type="search" placeholder="규정 검색…" aria-label="규정 검색">
+      </div>
+      <div id="regulationsList" class="regulations-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div><b id="footerShort">OELA</b><span id="footerFull">Our E-sport League Association</span></div>
+    <small>Official Competition &amp; Records Archive</small>
+  </footer>
+
+  <div id="adminModal" class="modal hidden" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="close" id="adminClose" aria-label="닫기">×</button>
+
+      <div id="loginView">
+        <p class="eyebrow">OELA ADMIN</p>
+        <h2>관리자 로그인</h2>
+        <p class="modal-note">관리자 계정으로 로그인해야 사이트 데이터를 수정할 수 있습니다.</p>
+        <form id="loginForm" class="admin-form">
+          <label>이메일<input id="loginEmail" type="email" autocomplete="username" required></label>
+          <label>비밀번호<input id="loginPassword" type="password" autocomplete="current-password" required></label>
+          <button class="button primary" type="submit">로그인</button>
+        </form>
+        <p id="loginMessage" class="admin-message"></p>
+      </div>
+
+      <div id="adminView" class="hidden">
+        <div class="admin-top">
+          <div><p class="eyebrow">OELA ADMIN</p><h2>사이트 관리</h2></div>
+          <button class="button secondary" id="logoutButton">로그아웃</button>
+        </div>
+
+        <div class="admin-section">
+          <h3>사이트 기본 설정</h3>
+          <form id="settingsForm" class="admin-grid">
+            <label>협회 약칭<input id="adminShort" required></label>
+            <label>협회 정식명칭<input id="adminFull" required></label>
+            <label>홈페이지 제목<input id="adminTitle" required></label>
+            <label>현재 시즌<input id="adminSeason" required placeholder="2025–26"></label>
+            <label class="wide">홈페이지 설명<input id="adminDescription"></label>
+            <div class="wide"><button class="button primary" type="submit">설정 저장</button></div>
+          </form>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-heading"><h3>대회 관리</h3><span>Competition</span></div>
+          <form id="competitionForm" class="admin-grid">
+            <label>코드<input id="compCode" placeholder="FPL" required></label>
+            <label>정식명칭<input id="compName" placeholder="FC Mobile Premier League" required></label>
+            <label>ID<input id="compId" placeholder="fpl" required></label>
+            <div class="admin-actions wide">
+              <button class="button primary" type="submit">대회 추가</button>
+              <button class="button secondary" type="button" id="reloadAdmin">새로고침</button>
+            </div>
+          </form>
+          <div id="competitionAdminList" class="admin-list"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-heading"><h3>시즌 관리</h3><span>Season</span></div>
+          <form id="seasonForm" class="admin-grid">
+            <label>대회<select id="seasonComp"></select></label>
+            <label>시즌명<input id="seasonName" placeholder="2026–27" required></label>
+            <div class="wide"><button class="button primary" type="submit">시즌 추가</button></div>
+          </form>
+          <div id="seasonAdminList" class="admin-list"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-heading"><h3>선수 기록</h3><span>Player Records</span></div>
+          <form id="recordForm" class="admin-grid">
+            <label>대회<select id="recordComp"></select></label>
+            <label>시즌<select id="recordSeasonAdmin"></select></label>
+            <label>선수<input id="recordPlayer" required></label>
+            <label>팀<input id="recordTeam" required></label>
+            <label>득점<input id="recordGoals" type="number" min="0" value="0" required></label>
+            <label>어시스트<input id="recordAssists" type="number" min="0" value="0" required></label>
+            <label>옐로카드<input id="recordYellow" type="number" min="0" value="0" required></label>
+            <label>레드카드<input id="recordRed" type="number" min="0" value="0" required></label>
+            <div class="admin-actions wide">
+              <button class="button primary" type="submit">기록 저장</button>
+              <button class="button secondary" type="button" id="clearRecordForm">입력 초기화</button>
+            </div>
+          </form>
+          <div id="recordAdminList" class="admin-list"></div>
+        </div>
+
+        <div class="admin-section">
+          <div class="admin-section-heading"><h3>규정 관리</h3><span>Regulations</span></div>
+          <form id="regulationForm" class="admin-grid">
+            <label>대회<select id="regCompAdmin"></select></label>
+            <label>시즌<select id="regSeasonAdmin"></select></label>
+            <label class="wide">장/절 제목<input id="regTitle" placeholder="제1장 총칙" required></label>
+            <label class="wide">규정 내용<textarea id="regBody" rows="8" required></textarea></label>
+            <div class="admin-actions wide">
+              <button class="button primary" type="submit">규정 저장</button>
+              <button class="button secondary" type="button" id="clearRegForm">입력 초기화</button>
+            </div>
+          </form>
+          <div id="regulationAdminList" class="admin-list"></div>
+        </div>
+
+        <p id="adminMessage" class="admin-message"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
