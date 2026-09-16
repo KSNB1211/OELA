@@ -261,11 +261,8 @@ function setAdminView(loggedIn) {
 }
 
 async function isLoggedIn() {
-  if (!supabaseClient || CONFIG.DEMO_MODE) return true;
-  const {data:{session}} = await supabaseClient.auth.getSession();
-  return !!session;
+  return false;
 }
-
 async function saveSettingsToDB() {
   const payload = {
     id:1, short_name:$("adminShort").value.trim(), full_name:$("adminFull").value.trim(),
@@ -445,9 +442,10 @@ $("clearRecordForm").onclick=clearRecordForm;
 $("clearRegForm").onclick=clearRegForm;
 $("reloadAdmin").onclick=async()=>{try{await loadData();renderAll();renderAdminSelectors();toast("데이터를 새로 불러왔습니다.");}catch(e){toast(e.message,true);}};
 
-$("adminOpen").onclick=async()=>{
-  $("adminModal").classList.remove("hidden"); $("adminModal").setAttribute("aria-hidden","false");
-  const logged=await isLoggedIn(); setAdminView(logged);
+$("adminOpen").onclick=()=>{
+  $("adminModal").classList.remove("hidden");
+  $("adminModal").setAttribute("aria-hidden","false");
+  setAdminView(false);
 };
 $("adminClose").onclick=()=>{$("adminModal").classList.add("hidden");$("adminModal").setAttribute("aria-hidden","true");};
 $("adminModal").addEventListener("click",e=>{if(e.target.id==="adminModal"){$("adminModal").classList.add("hidden");$("adminModal").setAttribute("aria-hidden","true");}});
